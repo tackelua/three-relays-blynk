@@ -33,9 +33,9 @@ WidgetTerminal Terminal(V0);
 #define R3 D5
 
 
-typedef enum { 
-	SMARTCONFIG = 1, 
-	WIFIMULTI = 2 
+typedef enum {
+	SMARTCONFIG = 1,
+	WIFIMULTI = 2
 } WiFi_Setup_Mode_t;
 
 void wifi_init(int mode) {
