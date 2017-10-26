@@ -18,9 +18,16 @@ ESP8266WiFiMulti wifiMulti;
 #define DB(x) Serial.println(x)
 #define Db(x) Serial.print(x) 
 
-// You should get Auth Token in the Blynk App.
-// Go to the Project Settings (nut icon).
-char BLYNK_AUTH[] = "13f528fc01334179874d55be89d04dc1";
+//server Gith
+//char BLYNK_AUTH[] = "13849dbd56804695b91e63f34f85e0e1";
+char BLYNK_AUTH[] = "6277cbbac56e48eab1a982b3bce7ee46";
+char BLYNK_DOMAIN[] = "10.210.6.73";
+
+//server blynk
+//char BLYNK_AUTH[] = "13f528fc01334179874d55be89d04dc1";
+//char BLYNK_DOMAIN[] = "blynk-cloud.com";
+
+int	 BLYNK_PORT = 8442;
 WidgetTerminal Terminal(V0);
 // Your WiFi credentials.
 // Set password to "" for open networks.
@@ -82,15 +89,22 @@ void wifi_init(int mode) {
 
 	else if (mode = WIFIMULTI)
 	{
-		wifiMulti.addAP("Nokia 6", "mic12345678");
-		wifiMulti.addAP("GithAP", "giathinh123");
+		wifiMulti.addAP("MIC", "");
+		wifiMulti.addAP("DTU", "");
+		//wifiMulti.addAP("IoT Wifi", "mic@dtu12345678()");
+		//wifiMulti.addAP("Nokia 6", "mic12345678");
+		//wifiMulti.addAP("GithAP", "giathinh123");
 		Serial.println("Connecting Wifi...");
-		if (wifiMulti.run() == WL_CONNECTED) {
-			Serial.println("");
-			Serial.println("WiFi connected");
-			Serial.println("IP address: ");
-			Serial.println(WiFi.localIP());
+		bool ledStt = false;
+		while (wifiMulti.run() != WL_CONNECTED) {
+			delay(50);
+			ledStt = !ledStt;
+			digitalWrite(LED_BUILTIN, ledStt);
 		}
+		Serial.println("");
+		Serial.println("WiFi connected");
+		Serial.println("IP address: ");
+		Serial.println(WiFi.localIP());
 	}
 }
 
@@ -174,7 +188,7 @@ void setup()
 	wifi_init(WIFIMULTI);
 	digitalWrite(LED_BUILTIN, HIGH);
 
-	Blynk.config(BLYNK_AUTH, "blynk-cloud.com", 8442);
+	Blynk.config(BLYNK_AUTH, BLYNK_DOMAIN, BLYNK_PORT);
 	Serial.println(F("Connect to Blynk server"));
 	while ((wifiMulti.run() != WL_CONNECTED) && (!Blynk.connect())) {
 		Serial.print(F("."));
