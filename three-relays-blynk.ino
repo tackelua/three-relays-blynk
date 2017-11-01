@@ -19,9 +19,12 @@ ESP8266WiFiMulti wifiMulti;
 #define Db(x) Serial.print(x) 
 
 //server Gith
-//char BLYNK_AUTH[] = "13849dbd56804695b91e63f34f85e0e1";
-char BLYNK_AUTH[] = "6277cbbac56e48eab1a982b3bce7ee46";
-char BLYNK_DOMAIN[] = "10.210.6.73";
+//char BLYNK_AUTH[] = "6277cbbac56e48eab1a982b3bce7ee46";
+//char BLYNK_DOMAIN[] = "10.210.6.73";
+
+//server MIC
+char BLYNK_AUTH[] = "13849dbd56804695b91e63f34f85e0e1";
+char BLYNK_DOMAIN[] = "mic.duytan.edu.vn";
 
 //server blynk
 //char BLYNK_AUTH[] = "13f528fc01334179874d55be89d04dc1";
@@ -186,6 +189,7 @@ void setup()
 
 	//WiFi.begin(ssid, pass);
 	wifi_init(WIFIMULTI);
+	WiFi.printDiag(Serial);
 	digitalWrite(LED_BUILTIN, HIGH);
 
 	Blynk.config(BLYNK_AUTH, BLYNK_DOMAIN, BLYNK_PORT);
